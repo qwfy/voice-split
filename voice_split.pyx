@@ -1,6 +1,8 @@
 import logging
 from dataclasses import dataclass
 
+import webrtcvad
+
 logger = logging.getLogger(__name__)
 
 
@@ -32,3 +34,15 @@ class Parameter:
   stride_in_blocks: int
   split_threshold_in_blocks: int
   drop_threshold_in_blocks: int
+
+
+class Splitter:
+
+  def __init__(self, parameter: Parameter):
+    self._parameter = parameter
+
+    self._vad = webrtcvad.Vad()
+    self._vad.set_mode(parameter.webrtcvad_mode)
+
+  def update(self, audio_binary: bytes):
+    pass
